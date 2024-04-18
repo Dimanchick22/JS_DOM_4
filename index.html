@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Range Slider</title>
+<style>
+  .slider-container {
+    margin-top: 50px;
+    position: relative;
+    width: 110px;
+  }
+
+  .slider-value {
+    position: absolute;
+    background: #fff;
+    color: #333;
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    top: -30px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="slider-container">
+  <div></div>
+  <input type="range" id="slider" min="0" max="100" value="50">
+  <div id="slider-value" class="slider-value">50</div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('slider');
+    const sliderValue = document.getElementById('slider-value');
+
+    slider.addEventListener('input', function() {
+      sliderValue.textContent = this.value;
+      const percent = (this.value - this.min) / (this.max - this.min) * 100;
+      sliderValue.style.left = `calc(${percent}% + (${12 - percent * 0.24}px))`;
+    });
+
+    const initialValue = slider.value;
+    const initialPercent = (initialValue - slider.min) / (slider.max - slider.min) * 100;
+    sliderValue.style.left = `calc(${initialPercent}% + (${12 - initialPercent * 0.24}px))`;
+    sliderValue.textContent = initialValue;
+  });
+</script>
+
+</body>
+</html>
